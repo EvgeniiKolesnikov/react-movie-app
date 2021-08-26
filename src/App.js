@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import Movie from './Movies';
+import Movie from './Movie';
+import classes from './App.module.css';
 
 // For componentDidMount
 // useEffect(() => {
@@ -48,26 +49,30 @@ function App() {
   }, []);
 
   return (
-    <div className='App'>
-      {isLoading
-        ? 'Loading...'
-        : movies.map((movie) => {
-            console.log(movie);
-            return (
-              <Movie
-                // key={movie.id}
-                // id={movie.id}
-                // title={movie.title}
-                // year={movie.year}
-                // summary={movie.summary}
-                // poster={movie.medium_cover_image}
-                {...movie}
-                key={movie.id}
-                poster={movie.medium_cover_image}
-              />
-            );
-          })}
-    </div>
+    <section className={classes.container}>
+      {isLoading ? (
+        <div className={classes.loader}>
+          <span className={classes.loader__text}>Loading...</span>
+        </div>
+      ) : (
+        <div className='movies'>
+          {movies.map (movie => (
+          <Movie
+            // key={movie.id}
+            // id={movie.id}
+            // title={movie.title}
+            // year={movie.year}
+            // summary={movie.summary}
+            // genres={movie.genres}
+            // poster={movie.medium_cover_image}
+            {...movie}
+            key={movie.id}
+            poster={movie.medium_cover_image}
+          />
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
 
